@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js Build Output
+frontend/.next/
+frontend/out/
+frontend/build/
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Environment Variables & Secrets (Keep .env.example)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+frontend/.env.local
+
+# Databases & Local Data
+*.sqlite
+*.sqlite3
+*.db
+trustgate.db
+trustgate.db-journal
+data/uploads/*
+!data/uploads/.gitkeep
+
+# IDEs & System Files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+*.log
+
+# Arduino / PlatformIO build artifacts
+hardware/esp32_firmware/.pio/
+hardware/esp32_firmware/build/
