@@ -1,0 +1,19 @@
+frameworks:
+  finra:
+    - rule: "3110"
+      control: Conditional human-in-the-loop escalation for confidence below 0.80 and hardware kill-switch
+    - rule: "4511"
+      control: Immutable structured JSON audit logs retained for 7 years
+    - rule: "2210"
+      control: Fair, balanced, non-misleading institutional decision reasons
+  federal_reserve:
+    - rule: "SR 11-7"
+      control: Quarterly full model validation, ongoing drift monitoring, and deterministic fallback engine
+    - rule: "SR 23-4"
+      control: Multi-provider LLM failover between Groq and Google Gemini with vendor due diligence
+  sec:
+    - rule: "Reg S-P"
+      control: Immediate Aadhaar masking (XXXX-XXXX-last4) and one-way SHA-256 hashing of all credential numbers
+  gdpr_dpdp:
+    - rule: "Data Minimization & Purpose Limitation"
+      control: Zero plaintext ID storage, non-invertible 256D facial vectors, and cascading record deletion

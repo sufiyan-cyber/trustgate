@@ -1,0 +1,35 @@
+name: check-duplicate-hash
+version: 1.0.0
+description: Queries the indexed SHA-256 document hash table to detect credential reuse or pass-back attempts across different participant registrations without storing plaintext IDs.
+input_schema:
+  type: object
+  properties:
+    id_number_hash:
+      type: string
+      description: 64-character hexadecimal SHA-256 digest of the normalized ID number
+    participant_name:
+      type: string
+      description: Normalized name of the current participant for conflict resolution
+  required:
+    - id_number_hash
+    - participant_name
+output_schema:
+  type: object
+  properties:
+    duplicate_detected:
+      type: boolean
+    conflict_type:
+      type: string
+    previous_registrations:
+      type: integer
+implementation:
+  type: http
+  url: http://localhost:8000/api/registrations/check-duplicate
+  method: POST
+  timeout: 10
+annotations:
+  requires_confirmation: false
+  read_only: true
+  cost: none
+  compliance_sensitive: true
+  idempotent: true

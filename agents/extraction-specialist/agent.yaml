@@ -1,0 +1,11 @@
+spec_version: "0.1.0"
+name: extraction-specialist
+version: 1.0.0
+description: Sub-agent specializing in multimodal document OCR, Verhoeff D5 checksum verification, and immediate PII masking.
+model:
+  preferred: gemini-1.5-flash
+skills:
+  - document-extraction
+tools:
+  - extract-document-ocr
+  - validate-verhoeff-checksum

@@ -1,0 +1,12 @@
+spec_version: "0.1.0"
+name: biometric-verifier
+version: 1.0.0
+description: Sub-agent specializing in 256-dimensional facial embedding comparison and MAX30102 photoplethysmography pulse liveness verification.
+model:
+  preferred: gemini-1.5-flash
+skills:
+  - identity-matching
+  - liveness-verification
+tools:
+  - compare-face-embeddings
+  - verify-pulse-liveness

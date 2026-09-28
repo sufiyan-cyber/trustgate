@@ -1,0 +1,12 @@
+spec_version: "0.1.0"
+name: compliance-reviewer
+version: 1.0.0
+description: Sub-agent that independently reviews multi-agent evidence, verifies SHA-256 duplicate hashes, and authorizes or denies physical gate actuation.
+model:
+  preferred: llama-3.3-70b-versatile
+skills:
+  - duplicate-detection
+  - gate-decision-synthesis
+tools:
+  - check-duplicate-hash
+  - actuate-physical-gate

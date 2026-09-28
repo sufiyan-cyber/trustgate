@@ -1,5 +1,6 @@
 """Document Extraction Agent utilizing Gemini Vision / AWS Textract pipeline with mathematical checksum and government ID validation."""
 import logging
+import re
 from typing import Any, Dict
 from app.agents.base_agent import BaseAgent
 from app.schemas.evidence import AgentResult, AgentStatus, Decision, Severity
@@ -46,7 +47,14 @@ class ExtractionAgent(BaseAgent):
             if data.dob:
                 reasons.append(f"Extracted DOB: '{data.dob}'")
             if data.id_number:
-                reasons.append(f"Extracted ID: '{data.id_number}'")
+                clean_digits = re.sub(r"\D", "", data.id_number)
+                if len(clean_digits) == 12:
+                    masked_id = f"XXXX-XXXX-{clean_digits[-4:]}"
+                elif len(data.id_number) > 6:
+                    masked_id = data.id_number[:2] + "****" + data.id_number[-4:]
+                else:
+                    masked_id = data.id_number
+                reasons.append(f"Extracted ID: '{masked_id}'")
 
             # Government Format & Mathematical Checksum Verification
             gov_validation = GovernmentIdValidator.validate_credential(data.id_number, data.id_type)

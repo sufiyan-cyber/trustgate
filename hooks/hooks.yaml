@@ -1,0 +1,13 @@
+hooks:
+  on_session_start:
+    - script: scripts/audit-session.sh
+      description: Initializes immutable compliance audit trace and verifies PII masking policy before session start
+      timeout: 10
+      compliance: true
+      fail_open: false
+  on_session_end:
+    - script: scripts/audit-session.sh
+      description: Flushes ephemeral biometric buffers and finalizes structured JSON audit log entry
+      timeout: 10
+      compliance: true
+      fail_open: false

@@ -1,0 +1,42 @@
+name: actuate-physical-gate
+version: 1.0.0
+description: Commands the ESP32 hardware bridge to unlock the physical servo turnstile (90 degrees) and update the 2.4-inch TFT LCD upon an authorized PASS verdict.
+input_schema:
+  type: object
+  properties:
+    session_id:
+      type: string
+      description: Verified session UUID authorizing gate actuation
+    device_id:
+      type: string
+      description: Target physical gateway device identifier (e.g., TG-001)
+    gate_command:
+      type: string
+      description: Hardware actuation directive
+      enum:
+        - OPEN_GATE
+        - KEEP_LOCKED
+  required:
+    - session_id
+    - device_id
+    - gate_command
+output_schema:
+  type: object
+  properties:
+    actuated:
+      type: boolean
+    servo_angle:
+      type: integer
+    lcd_state:
+      type: string
+implementation:
+  type: http
+  url: http://localhost:8000/api/device/TG-001/actuate
+  method: POST
+  timeout: 10
+annotations:
+  requires_confirmation: true
+  read_only: false
+  cost: none
+  compliance_sensitive: true
+  idempotent: false

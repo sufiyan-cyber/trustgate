@@ -1,0 +1,10 @@
+spec_version: "0.1.0"
+name: gate-auditor
+version: 1.0.0
+description: Sub-agent responsible for post-session compliance auditing, PII redaction verification, and immutable audit trail generation.
+model:
+  preferred: gemini-1.5-flash
+skills:
+  - duplicate-detection
+tools:
+  - check-duplicate-hash

@@ -1,0 +1,8 @@
+documents:
+  - path: verification-standards.md
+    always_load: true
+    tags:
+      - aadhaar
+      - verhoeff
+      - biometrics
+      - liveness

@@ -192,13 +192,31 @@ export default function VerificationKioskPage() {
     setCurrentStage(5); // Proceed to Liveness
   };
 
-  // 4. Handle Liveness Complete
+  // 4. Handle Liveness Complete & Auto-Evaluate
   const handleLivenessDone = async (data: any) => {
     setLivenessResult(data);
-    if (sessionId) {
-      await api.submitLiveness(sessionId, data);
+    const targetSessionId = sessionId;
+    if (targetSessionId) {
+      await api.submitLiveness(targetSessionId, data);
+      // Automatically trigger multi-agent pipeline immediately
+      setIsEvaluating(true);
+      setCurrentStage(7);
+      try {
+        const res = await api.runVerification(targetSessionId);
+        setFinalDecision(res.decision);
+        setFinalConfidence(res.confidence);
+        setFinalReasons(res.reasons);
+        setAgentResults(res.agent_results);
+        setGateCommand(res.gate_command);
+        setCurrentStage(8);
+      } catch (err) {
+        console.error("Pipeline auto-run error:", err);
+      } finally {
+        setIsEvaluating(false);
+      }
+    } else {
+      setCurrentStage(7);
     }
-    setCurrentStage(7); // Ready to run AI pipeline
   };
 
   // 5. Trigger Multi-Agent Pipeline

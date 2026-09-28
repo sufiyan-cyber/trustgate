@@ -1,0 +1,17 @@
+schedule:
+  cadence: quarterly
+  validation_type: full
+  owner: chief-security-officer
+  checks:
+    - name: verhoeff_checksum_accuracy
+      target: backend/app/core/id_validator.py
+      frequency: monthly
+    - name: face_embedding_bias_and_threshold_audit
+      target: backend/app/adapters/face_provider.py
+      frequency: quarterly
+    - name: pii_redaction_and_sha256_hash_integrity
+      target: backend/app/core/security.py
+      frequency: monthly
+    - name: hardware_servo_fail_closed_interlock
+      target: backend/app/services/hardware_policy.py
+      frequency: monthly

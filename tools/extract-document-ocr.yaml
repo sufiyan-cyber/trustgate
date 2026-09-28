@@ -1,0 +1,41 @@
+name: extract-document-ocr
+version: 1.0.0
+description: Extracts structured identity fields (name, DOB, masked ID number, institution, and document type) from a credential image using Google Gemini Multimodal Vision or AWS Textract.
+input_schema:
+  type: object
+  properties:
+    session_id:
+      type: string
+      description: Active verification session UUID
+    image_path:
+      type: string
+      description: Local path to the staged identity document image
+  required:
+    - session_id
+    - image_path
+output_schema:
+  type: object
+  properties:
+    name:
+      type: string
+    dob:
+      type: string
+    id_number_masked:
+      type: string
+    id_number_hash:
+      type: string
+    id_type:
+      type: string
+    confidence:
+      type: number
+implementation:
+  type: http
+  url: http://localhost:8000/api/verification/document
+  method: POST
+  timeout: 30
+annotations:
+  requires_confirmation: false
+  read_only: true
+  cost: low
+  compliance_sensitive: true
+  idempotent: true

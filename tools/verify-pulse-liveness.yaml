@@ -1,0 +1,45 @@
+name: verify-pulse-liveness
+version: 1.0.0
+description: Evaluates MAX30102 infrared photoplethysmography (PPG) pulse telemetry for pulsatile AC/DC presence, physiological BPM bounds, and signal stability.
+input_schema:
+  type: object
+  properties:
+    session_id:
+      type: string
+      description: Active verification session UUID
+    pulse_detected:
+      type: boolean
+      description: Whether an AC pulsatile arterial waveform was detected
+    signal_quality:
+      type: number
+      description: Signal-to-noise ratio quality score from 0.0 to 1.0
+    bpm:
+      type: number
+      description: Measured heart rate in beats per minute
+    duration_ms:
+      type: integer
+      description: Sensor contact window duration in milliseconds
+  required:
+    - session_id
+    - pulse_detected
+    - signal_quality
+output_schema:
+  type: object
+  properties:
+    decision:
+      type: string
+    confidence:
+      type: number
+    vitality_confirmed:
+      type: boolean
+implementation:
+  type: http
+  url: http://localhost:8000/api/verification/liveness
+  method: POST
+  timeout: 15
+annotations:
+  requires_confirmation: false
+  read_only: true
+  cost: none
+  compliance_sensitive: true
+  idempotent: true

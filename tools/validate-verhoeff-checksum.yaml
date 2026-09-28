@@ -1,0 +1,41 @@
+name: validate-verhoeff-checksum
+version: 1.0.0
+description: Validates government credential numbers against mathematical checksums (Verhoeff dihedral group D5 for 12-digit Aadhaar) and authorized RTO state prefixes for driving licenses.
+input_schema:
+  type: object
+  properties:
+    id_number:
+      type: string
+      description: Raw or normalized credential identifier string to validate
+    id_type:
+      type: string
+      description: Credential category (AUTO, AADHAAR, DRIVING_LICENSE, or COLLEGE_ID)
+      enum:
+        - AUTO
+        - AADHAAR
+        - DRIVING_LICENSE
+        - COLLEGE_ID
+  required:
+    - id_number
+output_schema:
+  type: object
+  properties:
+    is_valid:
+      type: boolean
+    detected_type:
+      type: string
+    checksum_passed:
+      type: boolean
+    reason:
+      type: string
+implementation:
+  type: http
+  url: http://localhost:8000/api/verification/validate-credential
+  method: POST
+  timeout: 10
+annotations:
+  requires_confirmation: false
+  read_only: true
+  cost: none
+  compliance_sensitive: true
+  idempotent: true

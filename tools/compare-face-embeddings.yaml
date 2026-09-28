@@ -1,0 +1,43 @@
+name: compare-face-embeddings
+version: 1.0.0
+description: Computes cosine similarity between 256-dimensional facial feature embeddings extracted from the identity document portrait and the live participant selfie.
+input_schema:
+  type: object
+  properties:
+    session_id:
+      type: string
+      description: Active verification session UUID
+    id_image_path:
+      type: string
+      description: File path to the identity document image
+    selfie_image_path:
+      type: string
+      description: File path to the live webcam selfie image
+  required:
+    - session_id
+    - id_image_path
+    - selfie_image_path
+output_schema:
+  type: object
+  properties:
+    match_status:
+      type: string
+    similarity_score:
+      type: number
+    confidence:
+      type: number
+    id_face_count:
+      type: integer
+    selfie_face_count:
+      type: integer
+implementation:
+  type: http
+  url: http://localhost:8000/api/verification/selfie
+  method: POST
+  timeout: 20
+annotations:
+  requires_confirmation: false
+  read_only: true
+  cost: low
+  compliance_sensitive: true
+  idempotent: true
